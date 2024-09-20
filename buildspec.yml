@@ -1,0 +1,14 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+     - echo  Creating jar file 
+     - mvn clean install
+     - mv target/*.jar app.jar
+
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the  jar to s3...
+      - aws s3 cp app.jar s3://$S3_BUCKET_NAME/app.jar
