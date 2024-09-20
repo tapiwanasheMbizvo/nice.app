@@ -1,5 +1,10 @@
 FROM openjdk:17-jdk-alpine
 
+
+RUN apt-get update && apt-get install -y maven
+ENV PATH=$PATH:/usr/share/maven/bin
+
+
 # Set the working directory
 WORKDIR /app
 
