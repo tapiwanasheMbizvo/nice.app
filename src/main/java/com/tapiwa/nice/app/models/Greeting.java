@@ -8,9 +8,9 @@ public class Greeting {
     private LocalDateTime currentTime;
 
 
-    public Greeting(String message, LocalDateTime currentTieme) {
+    public Greeting(String message, LocalDateTime currentTime) {
         this.message = message;
-        this.currentTime = currentTieme;
+        this.currentTime = currentTime;
     }
 
     public String getMessage() {
@@ -25,8 +25,8 @@ public class Greeting {
         return this.currentTime;
     }
 
-    public void setCurrentTieme(LocalDateTime currentTieme) {
-        this.currentTime = currentTieme;
+    public void setCurrentTieme(LocalDateTime currentTime) {
+        this.currentTime = currentTime;
     }
 
 }
