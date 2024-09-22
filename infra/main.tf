@@ -1,3 +1,13 @@
+terraform {
+  
+  backend "s3" {
+    
+    bucket = "terrafomrstate020923"
+    key = "terraform/devenv/key"
+    region = "af-south-1"
+  }
+}
+
 provider "aws" {
   region = var.region
 
