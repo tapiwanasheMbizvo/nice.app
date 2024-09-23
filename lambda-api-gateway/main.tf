@@ -98,6 +98,32 @@ resource "aws_iam_role_policy_attachment" "lambda_policy" {
 }
 
 
+##allow lambda to read sqs messages 
+
+resource "aws_iam_role_policy" "lambda_read_write_sqs" {
+  name = "lambda_read_write_sqs"
+  role = aws_iam_role.lambda_exec.name
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "sqs:SendMessage",
+          "sqs:ReceiveMessage",
+          "sqs:DeleteMessage",
+          "sqs:GetQueueAttributes"
+        ]
+        Effect   = "Allow"
+        Resource =  [aws_sqs_queue.transaction_result_queue.arn ]
+        
+         #"arn:aws:sqs:YOUR_REGION:YOUR_ACCOUNT_ID:YOUR_QUEUE_NAME"
+      },
+    ]
+  })
+}
+
+
 #api gateway def 
 
 resource "aws_apigatewayv2_api" "lambda" {
@@ -195,6 +221,8 @@ resource "aws_sqs_queue" "transaction_result_queue" {
 
 resource "aws_sqs_queue" "transaction_result_queue_deadletter" {
 
-  name = "transaction_result_queue_deadletter"
+  name = "transaction_result_queue_deadletter.fifo"
+  fifo_queue                  = true
+
   
 }

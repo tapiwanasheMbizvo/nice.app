@@ -1,5 +1,9 @@
 import json
 import random
+import boto3
+
+sqs = boto3.resource('sqs')
+queue = sqs.get_queue_by_name(QueueName='transaction_result_queue.fifo')
 
 def lambda_handler(event, context):
     txn_id = "none"
@@ -17,6 +21,16 @@ def lambda_handler(event, context):
     
                 # do some db stuff , and return the message 
                 message = "Transaction processed successfully!!!"
+                response =queue.send_message(MessageBody=json.dumps({'message': message , 'tranasction_id': txn_id}))
+                messageID = response.get('MessageId')
+                return {
+                    'statusCode': 200,
+                    'body': json.dumps({
+                        'message': message,
+                        'transaction_id': txn_id,
+                        'messageID': messageID
+                    })
+                }
         except (KeyError, json.JSONDecodeError):
             txn_id = "ERROR"
             message = "Invalid input or JSON format."
