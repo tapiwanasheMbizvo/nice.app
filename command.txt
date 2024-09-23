@@ -1,0 +1,2 @@
+aws lambda invoke --region=us-east-1 --function-name=$(terraform output -raw function_name) response.json
+aws s3 ls $(terraform output -raw lambda_bucket_name)
