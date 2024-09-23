@@ -175,7 +175,7 @@ resource "aws_lambda_permission" "api_gw" {
 
 
 resource "aws_sqs_queue" "transaction_result_queue" {
-  name                      = "transaction_result_queue"
+  name                      = "transaction_result_queue.fifo"
   delay_seconds             = 90
   max_message_size          = 2048
   message_retention_seconds = 86400
