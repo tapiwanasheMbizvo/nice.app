@@ -1,16 +1,16 @@
 import json
 import random
 import boto3
+import os
 
-sqs = boto3.resource('sqs')
-queue = sqs.get_queue_by_name(QueueName='transaction_result_queue.fifo')
+sqs_client = boto3.client("sqs", region_name="af-south-1")
 
 def lambda_handler(event, context):
     txn_id = "none"
     message = "failed"
-    routeKey = event.get('routeKey').split()[0]
+    routeKey = event.get('routeKey', '').split()[0]
     
-    if routeKey =='POST':
+    if routeKey == 'POST':
         try:
             body = event['body']
             body_dict = json.loads(body)
@@ -19,9 +19,17 @@ def lambda_handler(event, context):
             if acc_number:
                 txn_id = random.getrandbits(128).to_bytes(16, 'little').hex()
     
-                # do some db stuff , and return the message 
-                message = "Transaction processed successfully!!!"
-                response =queue.send_message(MessageBody=json.dumps({'message': message , 'tranasction_id': txn_id}))
+                # Do some DB stuff and return the message 
+                queue_url = os.environ.get('QUEUE_URL')
+                message = "Transaction processed successfully!"
+                
+                response = sqs_client.send_message(
+                    QueueUrl=queue_url,
+                    MessageBody=json.dumps({'message': message, 'transaction_id': txn_id}),
+                    MessageGroupId='5858'+txn_id, 
+                    MessageDeduplicationId='5854545'+txn_id 
+                )
+                
                 messageID = response.get('MessageId')
                 return {
                     'statusCode': 200,
@@ -31,11 +39,16 @@ def lambda_handler(event, context):
                         'messageID': messageID
                     })
                 }
+            else:
+                message = "Account number not provided."
+                
         except (KeyError, json.JSONDecodeError):
             txn_id = "ERROR"
             message = "Invalid input or JSON format."
+    
     elif routeKey == 'GET':
         message = "Get Method not defined"
+    
     return {
         'statusCode': 200,
         'body': json.dumps({
