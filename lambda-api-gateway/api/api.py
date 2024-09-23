@@ -4,16 +4,18 @@ import random
 def lambda_handler(event, context):
     txn_id = "none"
     message = "failed"
-    body = event['body']
-    body_dict = json.loads(body)
-    acc_number = body_dict.get('ACC_NUMBER')
     
     try:
+        body = event['body']
+        body_dict = json.loads(body)
+        acc_number = body_dict.get('ACC_NUMBER')
+        
         if acc_number:
             txn_id = random.getrandbits(128).to_bytes(16, 'little').hex()
-            message = "Tranasction  processed successfully!!!"
+            message = "Transaction processed successfully!!!"
     except (KeyError, json.JSONDecodeError):
         txn_id = "ERROR"
+        message = "Invalid input or JSON format."
 
     return {
         'statusCode': 200,
