@@ -1,2 +1,18 @@
 aws lambda invoke --region=us-east-1 --function-name=$(terraform output -raw function_name) response.json
 aws s3 ls $(terraform output -raw lambda_bucket_name)
+
+
+aws lambda invoke --region=us-east-1 \
+  --function-name=$(terraform output -raw function_name) \
+  --payload '{
+    "ID_NUMBER": "5450554H",
+    "PHON_NUMBER": "0786587426",
+    "FIRST_NAME": "TEST_NAME",
+    "LAST_NAME": "TEST_SURNAME",
+    "AMOUNT": 585.56
+  }' response.json
+
+
+base64 input.json >> output.txt
+
+aws lambda invoke --region=af-south-1  --function-name=$(terraform output -raw function_name)  --payload "$(cat output.txt)" response.json
