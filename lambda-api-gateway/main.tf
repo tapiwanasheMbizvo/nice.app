@@ -147,6 +147,14 @@ resource "aws_apigatewayv2_route" "transact_do" {
 
 }
 
+resource "aws_apigatewayv2_route" "transact_get" {
+  api_id = aws_apigatewayv2_api.lambda.id
+
+  route_key = "GET /transact"
+  target    = "integrations/${aws_apigatewayv2_integration.hello_world.id}"
+
+}
+
 resource "aws_cloudwatch_log_group" "api_gw" {
   name = "/aws/api_gw/${aws_apigatewayv2_api.lambda.name}"
 
