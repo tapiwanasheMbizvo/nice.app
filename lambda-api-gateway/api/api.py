@@ -3,7 +3,7 @@ import random
 
 def lambda_handler(event, context):
     txn_id = "none"
-    message = "failed";
+    message = "failed"
 
     if event.get('ACC_NUMBER'):
     
@@ -18,6 +18,7 @@ def lambda_handler(event, context):
         'statusCode': 200,
         'body': json.dumps({
             'message': message,
-            'transaction_id': txn_id
+            'transaction_id': txn_id,
+            'event': event
         })
     }
