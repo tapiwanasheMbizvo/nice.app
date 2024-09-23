@@ -62,7 +62,7 @@ resource "aws_lambda_function" "hello_world" {
   s3_key    = aws_s3_object.lambda_hello_world.key
 
   runtime = "python3.12"
-  handler = "api.handler"
+  handler = "api.lambda_handler"
 
   source_code_hash = data.archive_file.lambda_hello_world.output_base64sha256
 
