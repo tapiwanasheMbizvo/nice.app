@@ -3,6 +3,7 @@ import random
 
 def lambda_handler(event, context):
     txn_id = "none"
+    message = "failed";
 
     if event.get('ACC_NUMBER'):
     
