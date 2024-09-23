@@ -21,3 +21,11 @@ output "base_url" {
 
   value = aws_apigatewayv2_stage.lambda.invoke_url
 }
+
+
+output "tranasction_queue_name" {
+
+  description = "The Queue name"
+  value = aws_sqs_queue.transaction_result_queue.arn
+  
+}
