@@ -34,3 +34,20 @@ resource "aws_s3_bucket_acl" "lambda_bucket" {
   bucket = aws_s3_bucket.lambda_bucket.id
   acl    = "private"
 }
+
+
+data "archive_file" "lambda_hello_world" {
+  type = "zip"
+
+  source_dir  = "${path.module}/api"
+  output_path = "${path.module}/api.zip"
+}
+
+resource "aws_s3_object" "lambda_hello_world" {
+  bucket = aws_s3_bucket.lambda_bucket.id
+
+  key    = "api.zip"
+  source = data.archive_file.lambda_hello_world.output_path
+
+  etag = filemd5(data.archive_file.lambda_hello_world.output_path)
+}
