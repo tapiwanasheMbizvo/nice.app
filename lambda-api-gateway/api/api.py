@@ -5,10 +5,10 @@ def lambda_handler(event, context):
     txn_id = "none"
     message = "failed"
 
-    if event.get('ACC_NUMBER'):
+    if event.body.get('ACC_NUMBER'):
     
         try:
-            if event.get('ACC_NUMBER'):
+            if event.body.get('ACC_NUMBER'):
                 txn_id = random.getrandbits(128).to_bytes(16, 'little').hex()
                 message = "Tranasction  processed successfully!!!"
         except (KeyError, json.JSONDecodeError):
