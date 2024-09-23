@@ -12,6 +12,8 @@ def lambda_handler(event, context):
         
         if acc_number:
             txn_id = random.getrandbits(128).to_bytes(16, 'little').hex()
+
+            # do some db stuff , and return the message 
             message = "Transaction processed successfully!!!"
     except (KeyError, json.JSONDecodeError):
         txn_id = "ERROR"
@@ -21,7 +23,6 @@ def lambda_handler(event, context):
         'statusCode': 200,
         'body': json.dumps({
             'message': message,
-            'transaction_id': txn_id,
-            'event': event
+            'transaction_id': txn_id
         })
     }
