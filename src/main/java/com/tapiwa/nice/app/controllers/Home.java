@@ -13,7 +13,7 @@ public class Home {
     @GetMapping
     public  ResponseEntity<String> getHello(){
 
-        return  ResponseEntity.ok("Hello From home");
+        return  ResponseEntity.ok("Hello From home-server");
     }
     
 }
