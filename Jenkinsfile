@@ -17,7 +17,7 @@ pipeline {
         stage('Run Test') {
             steps {
                 echo 'Running Testing..'
-                tool name: 'mvn-jenkins' type: 'maven'
+               
                  withMaven {
                           sh "mvn test"
                  }
@@ -28,7 +28,7 @@ pipeline {
         stage('Build ') {
             steps {
                 echo 'mvn clean install....'
-                 tool name: 'mvn-jenkins' type: 'maven'
+                
                 withMaven {
                     sh "mvn clean install"
                 }
