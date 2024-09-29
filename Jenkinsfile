@@ -4,6 +4,10 @@ pipeline {
 
         environment {
         GITHUB_REPOSITORY = 'https://github.com/tapiwanasheMbizvo/nice.app.git'
+        DOCKER_HUB_CREDENTIALS = 'jenkins-docker'
+        BUILD_VERSION = "${env.BUILD_NUMBER}"
+        DOCKER_USER_NAME = 'tapiwanashembizvo'
+        DOCKER_REPO_NAME = 'nice-app'
     }
 
 tools{
@@ -12,12 +16,6 @@ tools{
  
 
     stages {
-
-               stage('Check Maven Version') {
-            steps {
-                sh 'mvn -v'
-            }
-        }
 
         stage('Checkout Code') {
             steps {
@@ -42,11 +40,28 @@ tools{
                 
                 withMaven {
                     sh "mvn clean install"
-                    sh "mv target/*.jar  app.jar"
                 }
         
             }
         }
+        stage('Docker image build'){
+            steps{
+
+
+            sh "docker build -t ${DOCKER_USER_NAME}/${DOCKER_REPO_NAME}:${BUILD_VERSION} ."
+            }
+        }
+
+
+       stage('Push Docker Image') {
+             steps {
+                 script {
+                     docker.withRegistry('', DOCKER_HUB_CREDENTIALS) {
+                         docker.image("${DOCKER_USER_NAME}/${DOCKER_REPO_NAME}:${env.BUILD_NUMBER}").push()
+                     }
+                 }
+             }
+         }
     }
 }
 
