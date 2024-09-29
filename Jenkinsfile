@@ -16,7 +16,7 @@ pipeline {
         }
         stage('Run Test') {
             steps {
-                echo 'Testing..'
+                echo 'Running Testing..'
                  withMaven {
                           sh "mvn test"
                  }
@@ -27,9 +27,11 @@ pipeline {
         stage('Build ') {
             steps {
                 echo 'mvn clean install....'
-                script {
-                    sh 'mvn clean install'
+
+                withMaven {
+                    sh "mvn clean install"
                 }
+        
             }
         }
     }
