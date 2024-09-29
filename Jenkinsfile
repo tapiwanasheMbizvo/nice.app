@@ -42,6 +42,7 @@ tools{
                 
                 withMaven {
                     sh "mvn clean install"
+                    sh "mv target/*.jar  app.jar"
                 }
         
             }
