@@ -6,13 +6,16 @@ pipeline {
         GITHUB_REPOSITORY = 'https://github.com/tapiwanasheMbizvo/nice.app.git'
     }
 
-        stage('Check Maven Version') {
+ 
+
+    stages {
+
+               stage('Check Maven Version') {
             steps {
                 sh 'mvn -v'
             }
         }
-
-    stages {
+        
         stage('Checkout Code') {
             steps {
                 echo "Checking out code "
