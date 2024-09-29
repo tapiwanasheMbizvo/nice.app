@@ -6,6 +6,9 @@ pipeline {
         GITHUB_REPOSITORY = 'https://github.com/tapiwanasheMbizvo/nice.app.git'
     }
 
+tools{
+    maven 'mvn-jenkins'
+}
  
 
     stages {
@@ -15,7 +18,7 @@ pipeline {
                 sh 'mvn -v'
             }
         }
-        
+
         stage('Checkout Code') {
             steps {
                 echo "Checking out code "
