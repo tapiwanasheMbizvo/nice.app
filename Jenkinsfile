@@ -14,14 +14,20 @@ pipeline {
                 git url: "${GITHUB_REPOSITORY}", branch: 'simple-spring-boot-with-docker'
             }
         }
-        stage('Test') {
+        stage('Run Test') {
             steps {
                 echo 'Testing..'
+                script {
+                    sh 'mvn test'
+                }
             }
         }
-        stage('Deploy') {
+        stage('Build ') {
             steps {
                 echo 'Deploying....'
+                script {
+                    sh 'mvn clean install'
+                }
             }
         }
     }
