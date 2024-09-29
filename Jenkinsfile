@@ -17,9 +17,11 @@ pipeline {
         stage('Run Test') {
             steps {
                 echo 'Testing..'
-                script {
-                    sh 'mvn test'
-                }
+                 withMaven {
+                          sh "mvn test"
+                 }
+
+
             }
         }
         stage('Build ') {
