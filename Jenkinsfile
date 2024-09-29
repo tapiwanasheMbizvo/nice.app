@@ -1,10 +1,17 @@
 pipeline {
     agent any
 
+        environment {
+        GITHUB_REPOSITORY = 'https://github.com/tapiwanasheMbizvo/nice.app.git'
+
+    }
+
+
     stages {
-        stage('Build') {
+        stage('Checkout Code') {
             steps {
-                echo 'Building..'
+                echo "Checking out code "
+                git url: "${GITHUB_REPOSITORY}", branch: 'simple-spring-boot-with-docker'
             }
         }
         stage('Test') {
