@@ -69,7 +69,7 @@ tools{
 
                 script{
 
-                    sh "ku describe deploy nice-app"
+                    sh "microk8s kubectl describe deploy nice-app"
                 }
             }
          }
