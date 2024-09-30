@@ -8,6 +8,8 @@ pipeline {
         BUILD_VERSION = "${env.BUILD_NUMBER}"
         DOCKER_USER_NAME = 'tapiwanashembizvo'
         DOCKER_REPO_NAME = 'nice-app'
+        K8S_DEPLOYMENT_NAME= "nice-app"
+        K8S_CONTAINER_NAME = "nice-app-container"
     }
 
 tools{
@@ -69,6 +71,8 @@ tools{
 
                 script{
 
+                    sh "microk8s kubectl describe deploy nice-app"
+                    sh "microk8s kubectl set image deployment/${K8S_DEPLOYMENT_NAME} ${K8S_CONTAINER_NAME}=${DOCKER_USER_NAME}/${DOCKER_REPO_NAME}:${BUILD_VERSION}"
                     sh "microk8s kubectl describe deploy nice-app"
                 }
             }
