@@ -49,7 +49,6 @@ tools{
 
            sh "docker build -t ${DOCKER_USER_NAME}/${DOCKER_REPO_NAME}:${BUILD_VERSION} ."
 
-         // sh "docker build -t ${DOCKER_USER_NAME}/${DOCKER_REPO_NAME}:${BUILD_VERSION} . -v /var/lib/jenkins:/home/jenkins/jenkins_workspace"
             }
         }
 
@@ -62,6 +61,17 @@ tools{
                      }
                  }
              }
+         }
+
+         stage('Deploy to K8s Cluster'){
+
+            steps{
+
+                script{
+
+                    sh "ku describe deploy nice-app"
+                }
+            }
          }
     }
 }
