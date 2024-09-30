@@ -47,9 +47,9 @@ tools{
         stage('Docker image build'){
             steps{
 
-          //  sh "docker build -t ${DOCKER_USER_NAME}/${DOCKER_REPO_NAME}:${BUILD_VERSION} ."
+           sh "docker build -t ${DOCKER_USER_NAME}/${DOCKER_REPO_NAME}:${BUILD_VERSION} ."
 
-          sh "docker build -t ${DOCKER_USER_NAME}/${DOCKER_REPO_NAME}:${BUILD_VERSION} . -v /var/lib/jenkins:/home/jenkins/jenkins_workspace"
+         // sh "docker build -t ${DOCKER_USER_NAME}/${DOCKER_REPO_NAME}:${BUILD_VERSION} . -v /var/lib/jenkins:/home/jenkins/jenkins_workspace"
             }
         }
 
