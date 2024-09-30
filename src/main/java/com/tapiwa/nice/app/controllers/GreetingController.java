@@ -17,7 +17,7 @@ public class GreetingController {
     @GetMapping
     public ResponseEntity<Greeting> getGreeting(){
 
-        var gretting = new Greeting("Hello There", LocalDateTime.now());
+        var gretting = new Greeting("Hello There Buddy!!", LocalDateTime.now());
 
         return  ResponseEntity.ok(gretting);
     }
