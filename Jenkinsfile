@@ -10,6 +10,7 @@ pipeline {
         DOCKER_REPO_NAME = 'nice-app'
         K8S_DEPLOYMENT_NAME= "nice-app"
         K8S_CONTAINER_NAME = "nice-app-container"
+        K8S_NAMESPACE = "dev-namespace"
     }
 
 tools{

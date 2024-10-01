@@ -6,13 +6,17 @@ public class Greeting {
     
     private String message;
     private LocalDateTime currentTime;
+    private SystemMetrics systemMetrics;
 
 
-    public Greeting(String message, LocalDateTime currentTime) {
+    public Greeting(String message, LocalDateTime currentTime, SystemMetrics systemMetrics) {
         this.message = message;
         this.currentTime = currentTime;
+        this.systemMetrics = systemMetrics;
     }
 
+    public SystemMetrics getSystemMetrics(){ return this.systemMetrics;}
+    
     public String getMessage() {
         return this.message;
     }
@@ -21,11 +25,11 @@ public class Greeting {
         this.message = message;
     }
 
-    public LocalDateTime getCurrentTieme() {
+    public LocalDateTime getCurrentTime() {
         return this.currentTime;
     }
 
-    public void setCurrentTieme(LocalDateTime currentTime) {
+    public void setCurrentTime(LocalDateTime currentTime) {
         this.currentTime = currentTime;
     }
 
