@@ -6,17 +6,16 @@ public class Greeting {
     
     private String message;
     private LocalDateTime currentTime;
-    private SystemMetrics systemMetrics;
+  
 
 
-    public Greeting(String message, LocalDateTime currentTime, SystemMetrics systemMetrics) {
+    public Greeting(String message, LocalDateTime currentTime) {
         this.message = message;
         this.currentTime = currentTime;
-        this.systemMetrics = systemMetrics;
+       
     }
 
-    public SystemMetrics getSystemMetrics(){ return this.systemMetrics;}
-    
+   
     public String getMessage() {
         return this.message;
     }

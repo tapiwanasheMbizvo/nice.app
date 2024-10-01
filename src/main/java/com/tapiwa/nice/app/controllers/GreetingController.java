@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tapiwa.nice.app.models.Greeting;
-import com.tapiwa.nice.app.models.SystemMetrics;
 
 @RestController
 @RequestMapping("/greeting")
@@ -18,7 +17,7 @@ public class GreetingController {
     @GetMapping
     public ResponseEntity<Greeting> getGreeting(){
 
-        var gretting = new Greeting("Hello There Buddy, How are you ", LocalDateTime.now(), new SystemMetrics());
+        var gretting = new Greeting("Hello There Buddy, How are you ", LocalDateTime.now());
 
         return  ResponseEntity.ok(gretting);
     }
